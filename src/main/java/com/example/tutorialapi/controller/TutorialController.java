@@ -7,8 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.tutorialapi.repository.TutorialRepository;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @RestController
@@ -19,7 +22,7 @@ public class TutorialController {
 
     @GetMapping("")
     public String test(){
-        return  "Ok";
+        return  LocalDate.parse(LocalDate.now().format(DateTimeFormatter.ofPattern( "uuuu-MM-dd" , Locale.UK ))).toString();
     }
 
     @GetMapping("/tutorials")
@@ -66,6 +69,8 @@ public class TutorialController {
             _tutorial.setTitle(tutorial.getTitle());
             _tutorial.setDescription(tutorial.getDescription());
             _tutorial.setPublished(tutorial.isPublished());
+            _tutorial.setUpdateDate(LocalDate.parse(LocalDate.now()
+                    .format(DateTimeFormatter.ofPattern( "uuuu-MM-dd" , Locale.UK ))));
             return new ResponseEntity<>(tutorialRepository.save(_tutorial), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

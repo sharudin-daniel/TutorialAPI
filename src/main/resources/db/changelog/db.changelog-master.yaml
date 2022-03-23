@@ -1,0 +1,72 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-master.yaml
+  - changeSet:
+      id: 1
+      author: dany
+      changes:
+        - createTable:
+            tableName: test_table_liquebase
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: published
+                  type: boolean
+#
+#  - changeSet:
+#      id: 2
+#      author: dany
+#      runOnChange: true
+#      comment: "Add some tutorials"
+#      changes:
+#        - insert:
+#            tableName: test_table_liquebase
+#            columns:
+#              - column:
+#                  name: title
+#                  value: "FirstTitle"
+#              - column:
+#                  name: description
+#                  value: "FirstDescriprion"
+#        - insert:
+#            tableName: test_table_liquebase
+#            columns:
+#              - column:
+#                  name: title
+#                  value: "SecondTitle"
+#              - column:
+#                  name: description
+#                  value: "SecondDescriprion"
+#      rollback:
+#        - delete:
+#            tableName: test_table_liquebase
+#            where: title in ('FirstTitle', 'SecondTitle')
+
+  - changeSet:
+      id: 3
+      author: dany
+      changes:
+        - addColumn:
+            tableName: test_table_liquebase
+            columns:
+              - column:
+                  name: create_date
+                  type: DATE
+              - column:
+                  name: update_date
+                  type: DATE
